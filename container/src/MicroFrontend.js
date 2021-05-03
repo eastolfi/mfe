@@ -5,8 +5,13 @@ function MicroFrontend({ name, host, history }) {
     const scriptId = `micro-frontend-script-${name}`;
 
     const renderMicroFrontend = () => {
-      
-      window[`render${name}`](`${name}-container`, history);
+      const renderFunction = `render${name}`;
+
+      if (!window[renderFunction]) {
+        console.warn(`${renderFunction} does not exists in window`);
+      } else {
+        window[renderFunction](`${name}-container`, history);
+      }
     };
 
     if (document.getElementById(scriptId)) {
