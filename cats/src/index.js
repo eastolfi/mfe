@@ -4,12 +4,25 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const renderCats = (containerId, history) => {
+  ReactDOM.render(
+    <React.StrictMode>
+      <App history={ history } />
+    </React.StrictMode>,
+    document.getElementById(containerId)
+  );
+
+  // service-worker
+}
+
+if (!document.getElementById('Cats-container')) {
+  renderCats('root', undefined);
+}
+
+window.renderCats = renderCats;
+window.unmountCats = containerId => {
+  ReactDOM.unmountComponentAtNode(document.getElementById(containerId));
+}
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
